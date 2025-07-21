@@ -277,6 +277,7 @@ class ChewieController extends ChangeNotifier {
     this.overlay,
     this.showControlsOnInitialize = true,
     this.showOptions = true,
+    this.showScreenMirroring = true,
     this.optionsBuilder,
     this.additionalOptions,
     this.showControls = true,
@@ -305,6 +306,7 @@ class ChewieController extends ChangeNotifier {
     this.hideControlsTimer = defaultHideControlsTimer,
     this.controlsSafeAreaMinimum = EdgeInsets.zero,
     this.pauseOnBackgroundTap = false,
+    this.onScreenMirroringTap,
   }) : assert(
          playbackSpeeds.every((speed) => speed > 0),
          'The playbackSpeeds values must all be greater than 0',
@@ -330,6 +332,8 @@ class ChewieController extends ChangeNotifier {
     Widget? overlay,
     bool? showControlsOnInitialize,
     bool? showOptions,
+    bool? showScreenMirroring,
+    Function? onScreenMirroringTap,
     Future<void> Function(BuildContext, List<OptionItem>)? optionsBuilder,
     List<OptionItem> Function(BuildContext)? additionalOptions,
     bool? showControls,
@@ -395,6 +399,8 @@ class ChewieController extends ChangeNotifier {
       showControlsOnInitialize:
           showControlsOnInitialize ?? this.showControlsOnInitialize,
       showOptions: showOptions ?? this.showOptions,
+      showScreenMirroring: showScreenMirroring ?? this.showScreenMirroring,
+      onScreenMirroringTap: onScreenMirroringTap ?? this.onScreenMirroringTap,
       optionsBuilder: optionsBuilder ?? this.optionsBuilder,
       additionalOptions: additionalOptions ?? this.additionalOptions,
       showControls: showControls ?? this.showControls,
@@ -436,6 +442,7 @@ class ChewieController extends ChangeNotifier {
   /// If false, the options button in MaterialUI and MaterialDesktopUI
   /// won't be shown.
   final bool showOptions;
+  final bool showScreenMirroring;
 
   /// Pass your translations for the options like:
   /// - PlaybackSpeed
@@ -517,6 +524,8 @@ class ChewieController extends ChangeNotifier {
   /// error message.
   final Widget Function(BuildContext context, String errorMessage)?
   errorBuilder;
+
+  final Function? onScreenMirroringTap;
 
   /// When the video is buffering, you can build a custom widget.
   final WidgetBuilder? bufferingBuilder;

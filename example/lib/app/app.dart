@@ -36,9 +36,9 @@ class _ChewieDemoState extends State<ChewieDemo> {
   }
 
   List<String> srcs = [
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "http://vjs.zencdn.net/v/oceans.mp4",
+    "https://media.w3.org/2010/05/sintel/trailer.mp4",
+    "https://sf1-hscdn-tos.pstatp.com/obj/media-fe/xgplayer_doc_video/flv/xgplayer-demo-360p.flv",
   ];
 
   Future<void> initializePlayer() async {
@@ -107,50 +107,50 @@ class _ChewieDemoState extends State<ChewieDemo> {
     ];
 
     _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController1,
-      autoPlay: true,
-      zoomAndPan: true,
-      looping: true,
-      progressIndicatorDelay:
-          bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
+        videoPlayerController: _videoPlayerController1,
+        autoPlay: true,
+        zoomAndPan: true,
+        looping: true,
+        progressIndicatorDelay:
+            bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
+        additionalOptions: (context) {
+          return <OptionItem>[
+            OptionItem(
+              onTap: (context) => toggleVideo(),
+              iconData: Icons.live_tv_sharp,
+              title: 'Toggle Video Src',
+            ),
+          ];
+        },
+        subtitle: Subtitles(subtitles),
+        showSubtitles: true,
+        subtitleBuilder: (context, dynamic subtitle) => Container(
+              padding: const EdgeInsets.all(10.0),
+              child: subtitle is InlineSpan
+                  ? RichText(text: subtitle)
+                  : Text(
+                      subtitle.toString(),
+                      style: const TextStyle(color: Colors.black),
+                    ),
+            ),
+        hideControlsTimer: const Duration(seconds: 1),
 
-      additionalOptions: (context) {
-        return <OptionItem>[
-          OptionItem(
-            onTap: (context) => toggleVideo(),
-            iconData: Icons.live_tv_sharp,
-            title: 'Toggle Video Src',
-          ),
-        ];
-      },
-      subtitle: Subtitles(subtitles),
-      showSubtitles: true,
-      subtitleBuilder: (context, dynamic subtitle) => Container(
-        padding: const EdgeInsets.all(10.0),
-        child: subtitle is InlineSpan
-            ? RichText(text: subtitle)
-            : Text(
-                subtitle.toString(),
-                style: const TextStyle(color: Colors.black),
-              ),
-      ),
+        // Try playing around with some of these other options:
 
-      hideControlsTimer: const Duration(seconds: 1),
-
-      // Try playing around with some of these other options:
-
-      // showControls: false,
-      // materialProgressColors: ChewieProgressColors(
-      //   playedColor: Colors.red,
-      //   handleColor: Colors.blue,
-      //   backgroundColor: Colors.grey,
-      //   bufferedColor: Colors.lightGreen,
-      // ),
-      // placeholder: Container(
-      //   color: Colors.grey,
-      // ),
-      // autoInitialize: true,
-    );
+        // showControls: false,
+        // materialProgressColors: ChewieProgressColors(
+        //   playedColor: Colors.red,
+        //   handleColor: Colors.blue,
+        //   backgroundColor: Colors.grey,
+        //   bufferedColor: Colors.lightGreen,
+        // ),
+        // placeholder: Container(
+        //   color: Colors.grey,
+        // ),
+        // autoInitialize: true,
+        onScreenMirroringTap: () {
+          print("外部收到点击了");
+        });
   }
 
   int currPlayIndex = 0;

@@ -40,7 +40,7 @@ class CenterPlayButton extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 icon:
                     isFinished
-                        ? Icon(Icons.replay, color: iconColor)
+                        ? Icon(Icons.replay_rounded, color: iconColor)
                         : AnimatedPlayPause(
                           color: iconColor,
                           playing: isPlaying,

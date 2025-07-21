@@ -137,15 +137,28 @@ class _MaterialControlsState extends State<MaterialControls>
     return Positioned(
       top: 0,
       right: 0,
-      child: SafeArea(
-        child: AnimatedOpacity(
-          opacity: notifier.hideStuff ? 0.0 : 1.0,
-          duration: const Duration(milliseconds: 250),
-          child: Row(
-            children: [
-              _buildSubtitleToggle(),
-              if (chewieController.showOptions) _buildOptionsButton(),
-            ],
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: SafeArea(
+          child: AnimatedOpacity(
+            opacity: notifier.hideStuff ? 0.0 : 1.0,
+            duration: const Duration(milliseconds: 250),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _buildBackButtonToggle(),
+                Row(
+                    children: [
+                      _buildSubtitleToggle(),
+                      if (chewieController.showScreenMirroring)
+                        _buildScreenMirroringToggle(),
+                      if (chewieController.showOptions) _buildOptionsButton(),
+                    ]
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -335,8 +348,8 @@ class _MaterialControlsState extends State<MaterialControls>
           child: Center(
             child: Icon(
               chewieController.isFullScreen
-                  ? Icons.fullscreen_exit
-                  : Icons.fullscreen,
+                  ? Icons.fullscreen_exit_rounded
+                  : Icons.fullscreen_rounded,
               color: Colors.white,
             ),
           ),
@@ -385,7 +398,7 @@ class _MaterialControlsState extends State<MaterialControls>
           children: [
             if (!isFinished && !chewieController.isLive)
               CenterSeekButton(
-                iconData: Icons.replay_10,
+                iconData: Icons.fast_rewind_rounded,
                 backgroundColor: Colors.black54,
                 iconColor: Colors.white,
                 show: showPlayButton,
@@ -393,6 +406,7 @@ class _MaterialControlsState extends State<MaterialControls>
                 iconSize: chewieController.materialSeekButtonSize,
                 onPressed: _seekBackward,
               ),
+            SizedBox(width: chewieController.isLive ? 0 : 50),
             Container(
               margin: EdgeInsets.symmetric(horizontal: marginSize),
               child: CenterPlayButton(
@@ -404,9 +418,10 @@ class _MaterialControlsState extends State<MaterialControls>
                 onPressed: _playPause,
               ),
             ),
+            SizedBox(width: chewieController.isLive ? 0 : 50),
             if (!isFinished && !chewieController.isLive)
               CenterSeekButton(
-                iconData: Icons.forward_10,
+                iconData: Icons.fast_forward_rounded,
                 backgroundColor: Colors.black54,
                 iconColor: Colors.white,
                 show: showPlayButton,
@@ -467,6 +482,41 @@ class _MaterialControlsState extends State<MaterialControls>
         ),
       ),
     );
+  }
+
+  // 返回按钮
+  Widget _buildBackButtonToggle() {
+    if(!chewieController.isFullScreen) {
+      return SizedBox();
+    }
+    return GestureDetector(
+      onTap: _onExpandCollapse,
+      child: Container(
+        height: barHeight,
+        color: Colors.transparent,
+        padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+        child: Icon(Icons.arrow_back, color: Colors.white),
+      ),
+    );
+  }
+
+  // 投屏
+  Widget _buildScreenMirroringToggle() {
+    return GestureDetector(
+      onTap: _onScreenMirroringTap,
+      child: Container(
+        height: barHeight,
+        color: Colors.transparent,
+        padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+        child: Icon(Icons.cast_connected, color: Colors.white),
+      ),
+    );
+  }
+
+  void _onScreenMirroringTap() {
+    if(chewieController.onScreenMirroringTap != null){
+      chewieController.onScreenMirroringTap!();
+    }
   }
 
   Widget _buildSubtitleToggle() {
