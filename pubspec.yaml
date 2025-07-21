@@ -1,6 +1,6 @@
 name: sarmay_chewie
 description: A video player for Flutter with Cupertino and Material play controls, 基于chewie1.12.1修改了一些内容
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/Sarmay/chewie
 
 environment:

@@ -1,3 +1,7 @@
+## 0.0.2
+
+  * 修复左侧返回按钮定位不准问题
+
 ## 0.0.1
 
 Initial version of Chewie, the video player with a heart of gold.

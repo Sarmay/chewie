@@ -81,7 +81,8 @@ class _MaterialControlsState extends State<MaterialControls>
                     const Center(child: CircularProgressIndicator())
               else
                 _buildHitArea(),
-              _buildActionBar(),
+              _buildLeftActionBar(context),
+              _buildRightActionBar(context),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -133,32 +134,38 @@ class _MaterialControlsState extends State<MaterialControls>
     super.didChangeDependencies();
   }
 
-  Widget _buildActionBar() {
+  Widget _buildLeftActionBar(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Positioned(
+      top: 0,
+      left: 0,
+      child: SafeArea(
+        child: AnimatedOpacity(
+          opacity: notifier.hideStuff ? 0.0 : 1.0,
+          duration: const Duration(milliseconds: 250),
+          child: _buildBackButtonToggle(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRightActionBar(BuildContext context) {
     return Positioned(
       top: 0,
       right: 0,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: SafeArea(
-          child: AnimatedOpacity(
-            opacity: notifier.hideStuff ? 0.0 : 1.0,
-            duration: const Duration(milliseconds: 250),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _buildBackButtonToggle(),
-                Row(
-                    children: [
-                      _buildSubtitleToggle(),
-                      if (chewieController.showScreenMirroring)
-                        _buildScreenMirroringToggle(),
-                      if (chewieController.showOptions) _buildOptionsButton(),
-                    ]
-                )
-              ],
-            ),
+      child: SafeArea(
+        child: AnimatedOpacity(
+          opacity: notifier.hideStuff ? 0.0 : 1.0,
+          duration: const Duration(milliseconds: 250),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _buildSubtitleToggle(),
+              if (chewieController.showScreenMirroring)
+                _buildScreenMirroringToggle(),
+              if (chewieController.showOptions) _buildOptionsButton(),
+            ],
           ),
         ),
       ),
