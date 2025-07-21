@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:chewie/src/animated_play_pause.dart';
-import 'package:chewie/src/center_play_button.dart';
-import 'package:chewie/src/chewie_player.dart';
-import 'package:chewie/src/chewie_progress_colors.dart';
-import 'package:chewie/src/helpers/utils.dart';
-import 'package:chewie/src/material/material_progress_bar.dart';
-import 'package:chewie/src/material/widgets/options_dialog.dart';
-import 'package:chewie/src/material/widgets/playback_speed_dialog.dart';
-import 'package:chewie/src/models/option_item.dart';
-import 'package:chewie/src/models/subtitle_model.dart';
-import 'package:chewie/src/notifiers/index.dart';
+import 'package:sarmay_chewie/src/animated_play_pause.dart';
+import 'package:sarmay_chewie/src/center_play_button.dart';
+import 'package:sarmay_chewie/src/chewie_player.dart';
+import 'package:sarmay_chewie/src/chewie_progress_colors.dart';
+import 'package:sarmay_chewie/src/helpers/utils.dart';
+import 'package:sarmay_chewie/src/material/material_progress_bar.dart';
+import 'package:sarmay_chewie/src/material/widgets/options_dialog.dart';
+import 'package:sarmay_chewie/src/material/widgets/playback_speed_dialog.dart';
+import 'package:sarmay_chewie/src/models/option_item.dart';
+import 'package:sarmay_chewie/src/models/subtitle_model.dart';
+import 'package:sarmay_chewie/src/notifiers/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

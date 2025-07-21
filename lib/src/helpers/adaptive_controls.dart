@@ -1,4 +1,4 @@
-import 'package:chewie/chewie.dart';
+import 'package:sarmay_chewie/sarmay_chewie.dart';
 import 'package:flutter/material.dart';
 
 class AdaptiveControls extends StatelessWidget {
